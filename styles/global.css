@@ -92,7 +92,7 @@ body {
 }
 
 .title-sm {
-  font-size: var(--title-32);
+  font-size: var(--text-32);
   line-height: var(--line-height-auto);
 }
 
