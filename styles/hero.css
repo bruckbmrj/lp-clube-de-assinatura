@@ -1,20 +1,27 @@
 .hero {
   position: relative;
-  & .hero__top{
+  overflow: hidden;
+  animation: appear 1000ms ease both;
+  opacity: 0;
+  & .hero-top{
     height: 948px;
     background-image: url('../assets/img/hero-background.png');
     background-position: top;
     background-size: cover;
     background-repeat: no-repeat;
 
-    nav {
+    & nav {
       margin-inline: auto;
       max-width: 70rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 3.5rem 0;
-      .btn-header {
+      & .btn-header {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        z-index: 1;
         max-width: 5.625rem;
         height: 2.5rem;
         background-color: var(--pink-dark);
@@ -22,6 +29,29 @@
         border-radius: 0.5rem;
         color: var(--text-title);
         text-decoration: none;
+
+        & span {
+          position: relative;
+          z-index: 2;
+        }
+      }
+      & .btn-header::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 150%; /* Maior que o botão para cobrir os cantos ao expandir */
+        padding-top: 150%; /* Mantém a proporção circular/elíptica */
+        background-color: var(--pink-base); /* Cor do efeito hover */
+        border-radius: 50%;
+        
+        /* Centraliza a elipse perfeitamente e começa com tamanho zero */
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.4s ease;
+        z-index: 1;
+      }
+      & .btn-header:hover::before {
+        transform: translate(-50%, -50%) scale(1);
       }
     }
 
@@ -31,10 +61,95 @@
       text-align: center;
       & h1 {
         padding-bottom: 2rem;
+        opacity: 0;
+        animation: appear 1000ms 500ms both;
       }
       & p {
         max-width: 35.5rem;
+        opacity: 0;
+        animation: appear 1000ms 1000ms ease both;
       }
     }
+  }
+  & .hero-content {
+    padding: 6rem 2rem 5rem;
+    display: flex;
+    flex-direction: column;
+    & .hero-content__top-image {
+      text-align: center;
+      & img {
+        max-width: 5.5rem;
+        max-height: 5.5rem;
+        transform: rotate(20.76deg);
+      }
+    }
+    & .hero-content__bottom-image {
+      display: flex;
+      justify-content: space-between;
+      & img:first-child {
+        max-width: 5rem;
+        max-height: 5rem;
+        transform: rotate(99.47deg);
+      }
+      & img:last-child {
+        max-width: 4.5rem;
+        max-height: 4.5rem;
+        transform: rotate(-14.48deg);
+      }
+    }
+    & .hero-content__text {
+      text-align: center;
+      & span {
+        color: var(--blue-light);
+      }
+    }
+  }
+  .blur-ellipse {
+    .ellipse-1 {
+      z-index: -1;
+      position: absolute;
+      width: 28.625rem;
+      height: 28.625rem;
+      left: calc(50% - 28.625rem/2 + 43.5rem);
+      top: 42rem;
+      background: var(--pink-low);
+      filter: blur(20.875rem);
+    }
+    .ellipse-2 {
+      z-index: -1;
+      position: absolute;
+      width: 21.5rem;
+      height: 21.5rem;
+      right: calc(50% - 21.5rem/2 + 40.375rem);
+      top: 30.875rem;
+      background: var(--pink-low);
+      filter: blur(15.875rem);
+    }
+    .ellipse-3 {
+      z-index: -1;
+      position: absolute;
+      width: 15rem;
+      height: 15rem;
+      left: calc(50% - 15rem/2 + 43.5rem);
+      top: 22.875rem;
+      background: var(--pink-low);
+      filter: blur(14.625rem);
+    }
+    .ellipse-4 {
+      z-index: -1;
+      position: absolute;
+      width: 31.25rem;
+      height: 31.25rem;
+      right: calc(50% - 31.25rem/2 + 13.5rem);
+      top: 61rem;
+      background: var(--pink-low);
+      filter: blur(27rem);
+    }
+  }
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
   }
 }
