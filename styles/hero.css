@@ -195,7 +195,7 @@
   }
 }
 
-    &.blur-ellipse {
+  & .blur-ellipse {
       .ellipse-1 {
         z-index: -1;
         position: absolute;
@@ -236,7 +236,7 @@
         background: var(--pink-low);
         filter: blur(27rem);
       }
-    }
+  }
 }
 
 @keyframes appear {
