@@ -43,5 +43,82 @@
       <span class="ellipse-4"></span>
     </div>
   </section>
+  <section class="kit-section">
+    <div class="kit-header">
+      <h2 class="title-sm"><img src="assets/icon/star.svg" alt="Estrela"> Conheça o kit mensal <img src="assets/icon/star.svg" alt="Estrela"></h2>
+      <p>Receba uma caixa surpresa todos os meses</p>
+    </div>
+
+    <div class="kit-display">
+      <!-- BRINDES (Ficam atrás do livro na ordem do HTML/Z-index) -->
+      <div class="kit-item item-marcador-roxo">
+        <img src="assets/img/bookmark-purple.png" alt="Marcador roxo">
+      </div>
+
+      <div class="kit-item item-marcador-amarelo">
+        <img src="assets/img/bookmark-yellow.png" alt="Marcador amarelo">
+      </div>
+
+      <div class="kit-item item-broches">
+        <img src="assets/img/pin.png" alt="Broche exclusivo">
+      </div>
+
+      <!-- LIVRO PRINCIPAL (Fica na frente de todos) -->
+      <div class="kit-main-book">
+        <img src="assets/img/book.png" alt="Livro O Castelo da Colina">
+      </div>
+
+      <!-- TEXTOS INDICATIVOS E SETAS SVG -->
+      <!-- Indicador 1: Livro capa dura -->
+      <div class="kit-indicator indicator-livro">
+        <p>Livro em capa dura</p>
+        <img src="assets/icon/arrow-hard-cover.svg" alt="Seta indicativa">
+
+      </div>
+
+      <!-- Indicador 2: Broche exclusivo -->
+      <div class="kit-indicator indicator-broche">
+        <p>Broche exclusivo</p>
+        <img src="assets/icon/arrow-pin.svg" alt="Seta indicativa">
+      </div>
+
+      <!-- Indicador 3: Marca páginas temático -->
+      <div class="kit-indicator indicator-marcador">
+        <img src="assets/icon/arrow-bookmark.svg" alt="Seta indicativa">
+        <p>Marca páginas temático</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const hero = document.querySelector('.hero-content');
+    let startTime = 0;
+    let timeoutId = null;
+
+    hero.addEventListener('mouseenter', () => {
+      // Cancela qualquer ordem de sumiço agendada anteriormente
+      clearTimeout(timeoutId);
+      
+      // Marca o milissegundo exato em que o mouse entrou
+      startTime = Date.now();
+      hero.classList.add('is-active');
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      const timeElapsed = Date.now() - startTime;
+      const animationDuration = 3500; // Tempo total da sua animação (3.5s)
+
+      if (timeElapsed >= animationDuration) {
+        // Se o usuário ficou mais de 3.5s e tirou o mouse, some na hora de forma suave
+        hero.classList.remove('is-active');
+      } else {
+        // Se tirou o mouse antes, calcula quanto tempo falta para terminar a animação e agenda o sumiço
+        const timeRemaining = animationDuration - timeElapsed;
+        timeoutId = setTimeout(() => {
+          hero.classList.remove('is-active');
+        }, timeRemaining);
+      }
+    });
+  </script>
 </body>
 </html>
