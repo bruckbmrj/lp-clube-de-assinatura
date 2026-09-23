@@ -1,0 +1,161 @@
+.kit-section {
+  padding: 14.75rem 2rem 17.375rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+
+  & .kit-header {
+    text-align: center;
+    margin-bottom: 5.5rem;
+    & h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 0.3rem;
+        & img {
+          filter: drop-shadow(0px 0px 28px rgba(143, 59, 158, 0.5));
+        }
+    }
+  }
+
+  /* CONTAINER DINÂMICO PRINCIPAL */
+  & .kit-display {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 57.5rem;
+    min-height: 640px;
+    display: flex;
+    justify-content: center;
+    padding-top: 8.375rem;
+
+    /* Base unificada para brindes E indicadores */
+    & .kit-item,
+    & .kit-indicator {
+      position: absolute;
+      z-index: 1;
+      opacity: 0;
+      transform: translate(0, 0) scale(0.8) rotate(0deg);
+      
+      /* --- TRANSIÇÃO DE SAÍDA SUAVE --- */
+      /* Quando o mouse SAI, esta regra toma o controle. O retorno para trás do livro
+         será executado em 0.7 segundos com uma desaceleração muito elegante (ease-out). */
+      transition: transform 0.7s ease-out, opacity 0.5s ease-in-out;
+
+      & img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    & .kit-indicator {
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* O LIVRO PRINCIPAL */
+    & .kit-main-book {
+      position: absolute;
+      z-index: 5;
+      width: 32.43vw; 
+      max-width: 467px; 
+      min-width: 220px; 
+      
+      & img { 
+        width: 100%; 
+        display: block; 
+        filter: drop-shadow(0px 20px 40px rgba(0, 0, 0, 0.6));
+      }
+    }
+
+    /* Proporções dos tamanhos */
+    & .item-marcador-amarelo { width: 12.7vw; max-width: 180px; min-width: 60px; }
+    & .item-marcador-roxo { width: 12.7vw; max-width: 180px; min-width: 60px; }
+    & .item-broches { width: 15.6vw; max-width: 222px; min-width: 75px; }
+
+    /* Direcionamento estático/alinhamento interno dos indicadores */
+    & .indicator-livro {
+      flex-direction: column;
+      width: 17.78vw;
+      max-width: 256px;
+      & img { width: 100%; max-width: 174px; margin-left: 5rem;}
+    }
+
+    & .indicator-broche {
+      flex-direction: column;
+      width: 9.8vw;
+      max-width: 132px;
+      align-items: flex-end;
+      text-align: right;
+      & img { width: 100%; max-width: 104px; }
+    }
+
+    & .indicator-marcador {
+      flex-direction: column;
+      align-items: flex-start;
+      & img { width: 100%; max-width: 145px; margin-left: 5.625rem;}
+    }
+  }
+
+  /* --- EVENTO DE HOVER: ENTRADA SUAVE E ELÁSTICA --- */
+  & .kit-display:hover {
+    
+    /* --- CONFIGURAÇÃO DA TRANSIÇÃO DE ENTRADA --- */
+    /* Ao entrar com o mouse, aplicamos o efeito elástico através da curva cubic-bezier.
+       Aumentamos o tempo para 1.1s para que a desaceleração final seja muito sutil e lenta. */
+    & .kit-item,
+    & .kit-indicator {
+      opacity: 1;
+      transition: transform 1.1s cubic-bezier(0.25, 1.4, 0.5, 1), opacity 0.6s ease-in-out;
+    }
+
+    /* Posições Finais dos Brindes (Ajustadas por você) */
+    & .item-marcador-amarelo {
+      transform: translate(146%, -9%) rotate(12deg) scale(1.10);
+      transition-delay: 0.05s;
+    }
+
+    & .item-marcador-roxo {
+      transform: translate(210%, 12%) rotate(22deg) scale(1.10);
+      transition-delay: 0.15s;
+    }
+
+    & .item-broches {
+      transform: translate(-120%, 175%) rotate(-8deg) scale(1.10);
+      transition-delay: 0.1s;
+    }
+
+    /* Posições Finais dos Indicadores (Ajuste os valores de translate abaixo como preferir) */
+    & .indicator-livro {
+      transform: translate(-126%, -86%) scale(1);
+      transition-delay: 0.25s;
+    }
+
+    & .indicator-broche {
+      transform: translate(-300%, 208%) scale(1);
+      transition-delay: 0.3s;
+    }
+
+    & .indicator-marcador {
+      transform: translate(128%, 296%) scale(1);
+      transition-delay: 0.35s;
+    }
+  }
+
+  & .blur-ellipse {
+    .ellipse-1 {
+      z-index: 0;
+      position: absolute;
+      width: 32rem;
+      height: 32rem;
+      top: 36rem;
+      left: 30%;
+      background: var(--pink-low);
+      filter: blur(18rem);
+    }
+  }
+}
