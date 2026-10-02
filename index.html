@@ -93,6 +93,88 @@
     </div>
   </section>
 
+  <section class="subscribe">
+    <div class="subscribe-header">
+      <h2 class="title-sm">Assinatura<br>Encantos Literários</h2>
+    </div>
+    
+    <div class="subscribe-container">
+      <!-- Card Esquerdo (Mensal) -->
+      <div class="card-wrapper card-mensal-wrapper">
+        <img src="assets/icon/star.svg" class="card-icon star-top-left" alt="Estrela">
+        <img src="assets/icon/star.svg" class="card-icon star-bottom-left" alt="Estrela">
+        <div class="subscribe-card card-mensal">
+          <div class="card-header">
+            <h3>Mensal</h3>
+          </div>
+          <div class="card-price">
+            <span class="title-md">R$ 59,90</span>
+            <span class="title-xs">/ mês</span>
+          </div>
+          <p class="yearly-total">R$ 718,80 por ano</p>
+          <div class="card-benefits">
+            <ul class="body-xs mensal-list">
+              <li><img src="assets/icon/star-alt.svg" alt="" srcset=""><span>Kit mensal com livro temático</span></li>
+              <li><img src="assets/icon/star-alt.svg" alt="" srcset=""><span></span>Broche e marca páginas exclusivo</span></li>
+              <li><img src="assets/icon/star-alt.svg" alt="" srcset=""><span>Acesso à comunidade literária</span></li>
+            </ul>
+            <a class="card-btn button" href="#"><span>Assinar mensal</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Central (Semestral) - Fica no topo da pilha (z-index maior) -->
+      <div class="card-wrapper card-semestral-wrapper">
+        <img src="assets/icon/bunny.svg" class="card-icon bunny-center" alt="Coelhinho">
+        <div class="subscribe-card card-semestral">
+          <div class="card-header">
+            <h3 class="title-xs">Semestral</h3>
+            <span class="tag">POPULAR</span>
+          </div>
+          <div class="card-price">
+            <span class="title-md">R$ 52,90</span>
+            <span class="title-xs">/ mês</span>
+          </div>
+          <p class="yearly-total body-sm">R$ 634,80 por ano</p>
+          <div class="card-benefits">
+            <ul class="body-xs semestral-list">
+              <li><img src="assets/icon/star.svg" alt="" srcset=""><span>Kit mensal com livro temático</span></li>
+              <li><img src="assets/icon/star.svg" alt="" srcset=""><span>Broche e marca páginas exclusivo</span></li>
+              <li><img src="assets/icon/star.svg" alt="" srcset=""><span>Acesso à comunidade literária</span></li>
+              <li><img src="assets/icon/star.svg" alt="" srcset=""><span>Membro premium do clube</span></li>
+            </ul>
+            <a class="card-btn button" href="#"><span>Assinar semestral</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Direito (Anual) -->
+      <div class="card-wrapper card-anual-wrapper">
+        <img src="assets/icon/star.svg" class="card-icon star-top-right" alt="Estrela">
+        <img src="assets/icon/star.svg" class="card-icon star-bottom-right" alt="Estrela">
+        <div class="subscribe-card card-anual">
+          <div class="card-header">
+            <h3>Anual</h3>
+          </div>
+          <div class="card-price">
+          <span class="title-md">R$ 48,90</span>
+          <span class="title-xs">/ mês</span>
+        </div>
+        <p class="yearly-total">R$ 586,80 por ano</p>
+        <div class="card-benefits">
+          <ul class="body-xs anual-list">
+            <li><img src="assets/icon/star-alt.svg" alt="" srcset=""><span>Kit mensal com livro temático</span></li>
+            <li><img src="assets/icon/star-alt.svg" alt="" srcset=""><span>Broche e marca páginas exclusivo</span></li>
+            <li><img src="assets/icon/star-alt.svg" alt="" srcset=""><span>Acesso à comunidade literária</span></li>
+            <li><img src="assets/icon/star-alt.svg" alt="" srcset=""><span>Membro premium do clube</span></li>
+            <li><img src="assets/icon/star-alt.svg" alt="" srcset=""><span>Planner anual de leituras</span></li>
+          </ul>
+          <a class="card-btn button" href="#"><span>Assinar anual</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <script>
     const hero = document.querySelector('.hero-content');
     let startTime = 0;
@@ -123,5 +205,23 @@
       }
     });
   </script>
+  <script>
+  const subscribeSection = document.querySelector('.subscribe');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      // Se a seção entrou na tela de forma substancial
+      if (entry.isIntersecting) {
+        subscribeSection.classList.add('animate-trigger');
+        // Desconecta o observador para que a animação aconteça apenas UMA vez permanentemente
+        observer.unobserve(subscribeSection);
+      }
+    });
+  }, {
+    threshold: 0.7 // Dispara quando 60% da seção estiver totalmente visível na tela
+  });
+
+  observer.observe(subscribeSection);
+</script>
 </body>
 </html>

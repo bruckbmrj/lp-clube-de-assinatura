@@ -1,0 +1,244 @@
+.subscribe {
+  background-image: radial-gradient(circle, var(--shape-base) 0%, transparent 55%);
+  padding: 12rem 12.25rem 18.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .subscribe-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  /* CONTAINER QUE CENTRALIZA E EMPILHA OS ENVOLUROS (.card-wrapper) */
+  & .subscribe-container {
+    position: relative;
+    width: 100%;
+    max-width: 65.625rem;
+    min-height: 37.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* CONTROLE GERAL DO CARD CENTRAL VIA :HAS() 
+       Se o container possuir o wrapper mensal em hover OU o wrapper anual em hover,
+       o card semestral perde o fundo imediatamente e de forma suave. */
+      &:has(.card-mensal-wrapper:hover) .card-semestral-wrapper .subscribe-card,
+      &:has(.card-anual-wrapper:hover) .card-semestral-wrapper .subscribe-card {
+        background-color: transparent;
+        border-color: var(--shape-stroke);
+        box-shadow: none;
+      }
+
+    /* O Envolvente (Wrapper) controla apenas o leque e as estrelas */
+    & .card-wrapper {
+      position: absolute;
+      width: 18rem;
+      box-sizing: border-box;
+      z-index: 1;
+      transform: translate(0, 0) rotate(0deg) scale(0.95);
+
+      margin-top: 0; /* Inicialmente, todos os wrappers começam no mesmo nível vertical */
+      /* O SEGREDO: O pai agora aceita a transição de margem para flutuar suavemente,
+         completamente livre da trava do forwards da animação! */
+      transition: margin-top 0.4s cubic-bezier(0.25, 1, 0.3, 1), z-index 0.1s ease;
+      
+      /* Adicionada transição para as estrelas se moverem suavemente no hover do pai */
+      & .card-icon {
+        position: absolute;
+        z-index: 6;
+        pointer-events: none; /* Não atrapalha interações do usuário */
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+      }
+
+      /* O CARD INTERNO: Cuida exclusivamente das interações e da SUBIDA SUAVE */
+      & .subscribe-card {
+        opacity: 0;
+
+        position: relative;
+        width: 100%;
+        min-height: 26rem;
+        border: 1px solid var(--shape-stroke);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+
+        /* Adicionamos a posição inicial do translate individual */
+        translate: 0 0;
+        
+        /* TRANSIÇÃO DA SUBIDA, COR E SOMBRA */
+        transition: translate 0.6s cubic-bezier(0.25, 1, 0.3, 1), 
+                    background-color 0.4s ease-in-out, 
+                    box-shadow 0.4s ease-in-out, 
+                    opacity 0.5s ease-in-out;
+
+        & .card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.25rem;
+          & h3 { color: var(--blue-light); }
+        }
+        & .card-price { margin-bottom: 0.5rem; }
+        & .card-benefits {
+          display: flex;
+          flex-direction: column;
+          margin-top: 4.375rem;
+          gap: 1.5rem;
+          & ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            & li {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              & img {
+                width: 0.875rem;
+              }
+            }
+          }
+          & .card-btn {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            background-color: var(--blue-dark);
+            padding: 0.75rem 3rem;
+            border-radius: 0.5rem;
+            color: var(--text-title);
+            text-decoration: none;
+            text-align: center;
+            & span { position: relative; z-index: 2; }
+          }
+          & .card-btn::before {
+            content: "";
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 150%; padding-top: 150%;
+            background-color: var(--blue-mid);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.4s ease;
+            z-index: 1;
+          }
+          & .card-btn:hover::before { transform: translate(-50%, -50%) scale(1); }
+        }
+      }
+    }
+
+    /* Coordenadas das estrelas (Mantidas do seu código original) */
+    & .star-top-left     { top: -3.2rem; left: -2rem; width: 1.625rem; }
+    & .star-bottom-left  { top: -1rem; left: -2.5rem; width: 0.825rem; }
+    & .star-top-right    { bottom: -1rem; right: -2.6rem; width: 1.5rem; }
+    & .star-bottom-right { bottom: -2rem; right: -1.4rem; width: 0.8rem; }
+    & .bunny-center      { top: -3.0rem; left: 2rem; width: 2.825rem; z-index: 0; }
+
+    /* --- INTERAÇÃO ESPECÍFICA: HOVER NO MENSAL (ESQUERDO) --- */
+    & .card-mensal-wrapper:hover {
+      z-index: 10; /* Fica na frente na hora do foco */
+      margin-top: -1.5rem;
+
+      /* Subida isolada e ganho de cor/sombra no card interno */
+      & .subscribe-card {
+        background-color: var(--shape-hover);
+        box-shadow: 0px 20px 38px rgba(143, 59, 158, 0.15);
+      }
+
+      /* Rotação das Estrelas esquerdas */
+      & .star-top-left { transform: rotate(12deg); }
+      & .star-bottom-left { transform: rotate(-12deg); }
+    }
+
+    /* --- INTERAÇÃO ESPECÍFICA: HOVER NO ANUAL (DIREITO) --- */
+    & .card-anual-wrapper:hover {
+      z-index: 10;
+      margin-top: -1.5rem;
+
+      & .subscribe-card {
+        background-color: var(--shape-hover);
+        box-shadow: 0px 20px 38px rgba(143, 59, 158, 0.15);
+      }
+
+      /* Rotação das Estrelas direitas */
+      & .star-top-right { transform: rotate(-12deg); }
+      & .star-bottom-right { transform: rotate(12deg); }
+    }
+
+    /* --- O WRAPPER SEMESTRAL CENTRAL --- */
+    & .card-semestral-wrapper {
+      position: relative;
+      z-index: 5;
+      transform: translate(0, 0) scale(1.03);
+      
+      /* Adicionada transição no pai inteiro para obedecer a sua regra de translateY(-5%) */
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+
+      & .subscribe-card {
+        opacity: 1;
+        background-color: var(--shape-hover);
+        & .card-header {
+          & h3 { color: var(--pink-light); }
+          & span {
+            padding: 0.5rem 1.25rem;
+            background-color: var(--shape-stroke);
+            border-radius: 2rem;
+          }
+        }
+        & .card-benefits .card-btn {
+          background-color: var(--pink-dark);
+          &::before { background-color: var(--pink-base); }
+        }
+      }
+
+      /* REGRA SOLICITADA: Hover faz o elemento pai INTEIRO subir -5% com sombra */
+      &:hover {
+        transform: translate(0, 0) scale(1.03) translateY(-5%);
+        
+        & .subscribe-card {
+          box-shadow: 0px 20px 38px rgba(143, 59, 158, 0.15);
+        }
+      }
+    }
+  }
+
+  /* --- GATILHO DO SCROLL (Modificado para orquestrar os Wrappers) --- */
+  &.animate-trigger {
+    
+    /* Faz os cards de assinatura internos surgirem suavemente assim que a abertura inicia */
+    & .card-mensal-wrapper .subscribe-card,
+    & .card-anual-wrapper .subscribe-card {
+      opacity: 1;
+      transition: opacity 0.6s ease-in-out;
+      transition-delay: 0.3s; /* Entram de leve no meio da expansão */
+    }
+
+    /* Aplica as animações elásticas diretamente nas caixas contendo as estrelas */
+    & .card-mensal-wrapper {
+      animation: spreadCardMensal 1.1s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    & .card-anual-wrapper {
+      animation: spreadCardAnual 1.1s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+      animation-delay: 0.2s;
+    }
+  }
+}
+
+/* ==========================================================================
+   --- KEYFRAMES ELÁSTICOS APLICADOS NOS WRAPPERS ---
+   ========================================================================== */
+@keyframes spreadCardMensal {
+  0% { transform: translate(0, 0) rotate(0deg) scale(0.95); }
+  75% { transform: translate(-113%, 12%) rotate(-10deg) scale(1); }
+  100% { transform: translate(-103%, 16%) rotate(-8deg) scale(1); }
+}
+
+@keyframes spreadCardAnual {
+  0% { transform: translate(0, 0) rotate(0deg) scale(0.95); }
+  75% { transform: translate(113%, 12%) rotate(10deg) scale(1); }
+  100% { transform: translate(103%, 14%) rotate(8deg) scale(1); }
+}
