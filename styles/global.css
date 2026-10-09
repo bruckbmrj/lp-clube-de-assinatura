@@ -153,3 +153,25 @@ body {
   max-width: 1200px;
   margin-inline: auto;
 }
+
+.logo-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .logo-mobile {
+    display: block;
+  }
+  .logo-desktop {
+    display: none;
+  }
+  .title-lg {
+    font-size: 1.75rem;
+  }
+  .title-sm {
+    font-size: 1.5rem;
+  }
+  .body-lg {
+    font-size: var(--text-14)
+  }
+}

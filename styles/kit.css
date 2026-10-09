@@ -159,3 +159,59 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .kit-section {
+    padding: 6.5rem 0.75rem 5.625rem;
+    & .kit-header {
+      margin-bottom: 4rem;
+      & h2 {
+        & img {
+          width: 1.25rem;
+          height: auto;
+        }
+      }
+      & p {
+        font-size: var(--text-14);
+      }
+    }
+    & .kit-display {
+      height: 30.625rem;
+      min-height: 0;
+      & .kit-main-book {
+        min-width: 158px;
+      }
+      & .kit-indicator {
+        gap: 0.75rem;
+        & p {
+          font-size: var(--text-10);
+        }
+      }
+      & .indicator-livro {
+        width: 20vw;
+        & img {
+          max-width: 72px;
+          margin-left: 2.25rem;
+        }
+      }
+      & .indicator-marcador {
+        & img {
+            width: 100%;
+            max-width: 56px;
+            margin-left: 3.5rem;
+        }
+      }
+      &:hover {
+        & .indicator-livro {
+          transform: translate(-138%, -96%) scale(1);
+        }
+        & .indicator-broche {
+          transform: translate(-300%, 88%) scale(1);
+        }
+        & .indicator-marcador {
+          transform: translate(72%, 236%) scale(1);
+        }
+      }
+    }
+  }
+}
